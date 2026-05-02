@@ -4,21 +4,22 @@ export default function Dashboard() {
   const [sector, setSector] = useState("Core");
   const [missions, setMissions] = useState([]);
 
+  // Updated to normal workout names and added short YouTube tutorial links
   const workoutData = {
     Arms: [
-      { id: 1, title: "Supernova Curls (3x12)", xp: 150 },
-      { id: 2, title: "Comet Tricep Extensions", xp: 100 },
-      { id: 3, title: "Asteroid Hammer Curls", xp: 120 },
+      { id: 1, title: "Bicep Curls (3x12)", xp: 150, video: "https://www.youtube.com/watch?v=VCw_uIxW8WE" },
+      { id: 2, title: "Tricep Extensions", xp: 100, video: "https://www.youtube.com/watch?v=b_r_LW4HEcM" },
+      { id: 3, title: "Hammer Curls", xp: 120, video: "https://www.youtube.com/watch?v=8H5oWMNWWeQ" },
     ],
     Legs: [
-      { id: 4, title: "Gravity Squats (4x10)", xp: 200 },
-      { id: 5, title: "Lunar Lunges", xp: 150 },
-      { id: 6, title: "Orbit Calf Raises", xp: 80 },
+      { id: 4, title: "Squats (4x10)", xp: 200, video: "https://www.youtube.com/watch?v=eFEVKmp3M4g" },
+      { id: 5, title: "Lunges", xp: 150, video: "https://www.youtube.com/watch?v=1cS-6KsJW9g" },
+      { id: 6, title: "Calf Raises", xp: 80, video: "https://www.youtube.com/watch?v=baEXLy09Ncc" },
     ],
     Core: [
-      { id: 7, title: "Black Hole Planks (1 min)", xp: 120 },
-      { id: 8, title: "Plasma Leg Raises", xp: 100 },
-      { id: 9, title: "Nebula Crunches", xp: 90 },
+      { id: 7, title: "Plank (1 min)", xp: 120, video: "https://www.youtube.com/watch?v=xe2MXatLTUw" },
+      { id: 8, title: "Leg Raises", xp: 100, video: "https://www.youtube.com/watch?v=PpZxg66ftYc" },
+      { id: 9, title: "Crunches", xp: 90, video: "https://www.youtube.com/watch?v=eeJ_CYqSoT4" },
     ],
   };
 
@@ -131,17 +132,29 @@ export default function Dashboard() {
               {missions.map((m) => (
                 <div 
                   key={m.id}
-                  onClick={() => toggleMission(m.id)}
-                  className={`p-4 rounded-xl border cursor-pointer flex justify-between items-center transition-all ${
+                  className={`p-4 rounded-xl border transition-all flex flex-col gap-2 ${
                     m.completed 
                     ? "bg-green-500/10 border-green-500/40 opacity-60" 
                     : "bg-white/5 border-white/10 hover:border-orange-500/50"
                   }`}
                 >
-                  <span className={m.completed ? "line-through text-gray-500" : "font-medium"}>{m.title}</span>
-                  <div className={`text-xs px-2 py-1 rounded font-bold ${m.completed ? "bg-green-500 text-black" : "bg-orange-500/20 text-orange-400"}`}>
-                    +{m.xp} XP
+                  <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleMission(m.id)}>
+                    <span className={m.completed ? "line-through text-gray-500" : "font-medium"}>{m.title}</span>
+                    <div className={`text-xs px-2 py-1 rounded font-bold ${m.completed ? "bg-green-500 text-black" : "bg-orange-500/20 text-orange-400"}`}>
+                      +{m.xp} XP
+                    </div>
                   </div>
+                  
+                  {/* YouTube Tutorial Link */}
+                  <a 
+                    href={m.video} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-xs text-blue-400 hover:text-blue-300 w-fit flex items-center gap-1 mt-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    ▶ Watch Tutorial
+                  </a>
                 </div>
               ))}
             </div>
